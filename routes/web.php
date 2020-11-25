@@ -45,6 +45,25 @@ Route::get('view/{id}', function () {
     return view('view')->with('data', $data);;
 });
 
+Route::get('list', function () {
+    $datas = [];
+    for($i = 1; $i <= 15; $i++){
+        $datas[] = [
+            'id' => $i,
+            'name' => 'Name'.$i,
+            'description' => 'Description'.$i,
+            'picture_url' => 'PictureUrl'.$i,
+            'host_name' => 'Name Host'.$i,
+            'host_about' => 'About Host'.$i,
+            'host_response_time' => '2 Hours'.$i,
+            'host_picture_url' => 'HostUrl'.$i,
+            'other' => 'DATA NOT SHOWED IN LIST BUT IN VIEW'
+        ];
+    }
+    
+    return view('list')->with('datas', $datas);
+});
+
 Route::get('edit/{id}', function () {
     $datas = [];
     for($i = 1; $i <= 15; $i++){
@@ -72,4 +91,3 @@ Route::get('edit/{id}', function () {
     
     return view('edit')->with('data', $data);;
 });
-
