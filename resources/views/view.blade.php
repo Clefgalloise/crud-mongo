@@ -12,19 +12,23 @@
   </head>
 
   <body>
-    <div class="navbar navbar-dark bg-dark">
-      <a href="/list" class="navbar-brand" style="padding: 15px;"> HOME </a>
-    </div>
+    @include('header')
     <div style="padding: 30px;">
       <h2>View :</h2><hr>
         @isset($data)
           @foreach ($data as $line => $value)
-            <p>{{ $line }} : {{ $value }}</p>
+                @if($line !== '_id')
+                    @if(strlen($value) <= 250)
+                        <p><strong>{{ $line }}</strong> : {{ $value }}</p>
+                    @else
+                        <p><strong>{{ $line }}</strong> : <br> <div class="pl-3 pt-0" style="border-left: 1px solid #989898">{!! $value !!}</div></p>
+                    @endif
+                @endif
           @endforeach
         @endisset
     </div>
   </body>
 </html>
-    
 
-    
+
+

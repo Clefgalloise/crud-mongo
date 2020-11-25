@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CollectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('{collection}', CollectionController::class)->parameters([
+    '{collection}' => 'id'
+]);
 
 Route::get('view/{id}', function () {
     $datas = [];
@@ -38,11 +43,11 @@ Route::get('view/{id}', function () {
 
     foreach($datas as $dataTemp){
         if($dataTemp['id'] == request('id')){
-            $data = $dataTemp;         
+            $data = $dataTemp;
         }
     }
 
-    return view('view')->with('data', $data);;
+    return view('view')->with('data', $data);
 });
 
 Route::get('list', function () {
@@ -60,7 +65,7 @@ Route::get('list', function () {
             'other' => 'DATA NOT SHOWED IN LIST BUT IN VIEW'
         ];
     }
-    
+
     return view('list')->with('datas', $datas);
 });
 
@@ -79,15 +84,15 @@ Route::get('edit/{id}', function () {
             'other' => 'DATA NOT SHOWED IN LIST BUT IN VIEW'
         ];
     }
-    
+
     $data = null;
     $dataSend = [];
 
     foreach($datas as $dataTemp){
         if($dataTemp['id'] == request('id')){
-            $data = $dataTemp;         
+            $data = $dataTemp;
         }
     }
-    
-    return view('edit')->with('data', $data);;
+
+    return view('edit')->with('data', $data);
 });
