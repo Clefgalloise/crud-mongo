@@ -42,7 +42,7 @@ class CollectionController extends Controller
             }
         }
 
-        return view('list', compact('datas'), [
+        return view('collection.list', compact('datas'), [
             'collection' => $collection->getCollectionName(),
             'pages'      => $count / 10,
             'current'    => $page,
@@ -68,7 +68,7 @@ class CollectionController extends Controller
 
         $data = $collection->findOne(['_id' => new ObjectId($id)]);
 
-        return view('view', compact('data'), [
+        return view('collection.view', compact('data'), [
             'collection' => $collection->getCollectionName()
         ]);
     }
@@ -89,7 +89,7 @@ class CollectionController extends Controller
 
         $data = $collection->findOne(['_id' => new ObjectId($id)]);
 
-        return view('edit', compact('data'), [
+        return view('collection.edit', compact('data'), [
             'collection' => $collection->getCollectionName()
         ]);
     }

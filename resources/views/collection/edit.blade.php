@@ -13,7 +13,7 @@
 </head>
 
 <body>
-@include('header')
+@include('collection.header')
 <div style="padding: 30px;">
     <h2>Edition :</h2>
     <hr>

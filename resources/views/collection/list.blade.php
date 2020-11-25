@@ -15,7 +15,7 @@
 </head>
 
 <body>
-@include('header')
+@include('collection.header')
 <div style="padding: 40px;">
     <div class="row">
         <div class="col-4">

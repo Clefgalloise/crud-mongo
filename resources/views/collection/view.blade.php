@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    @include('header')
+    @include('collection.header')
     <div style="padding: 30px;">
       <h2>View :</h2><hr>
         @isset($data)
