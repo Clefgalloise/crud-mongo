@@ -17,10 +17,12 @@
       <a href="/list" class="navbar-brand" style="padding: 15px;"> HOME </a>
     </div>
     <div style="padding: 40px;">
-      <label for="date">FILTER DATE</label>
-      <div style="width: 200px">
-        <input class="form-control" type="date" id="date">
+      <label for="date-input"><b>FILTER DATE</b></label>
+      <div style="width: 300px">
+        <input class="form-control" type="date" id="date-input">
       </div>
+      <br>
+      <a href="#" class="btn btn-secondary"><i class="fas fa-search"></i></a> 
       <hr>
       <input class="form-control" id="myInput" type="text" placeholder="Search.." style="width: 200px;">
       <hr>
@@ -78,8 +80,6 @@
         </tbody>
       </table>
     </div>
-
-    
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
