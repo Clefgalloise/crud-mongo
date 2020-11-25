@@ -22,6 +22,7 @@
           <tr>
             <th>NAME</th>
             <th>DESCRIPTION</th>
+            <th>DATE</th>
             <th>PICTURE</th>
             <th>HOST NAME</th>
             <th>ABOUT HOST</th>
@@ -36,6 +37,7 @@
               <tr>
                 <td>{{ $data['name'] }}</td>
                 <td>{{ $data['description'] }}</td>
+                <td>{{ $data['last_scraped'] }}</td>
                 <td>
                   <a href="{{ $data['picture_url'] }}" target="_blank">
                     <img src="{{ $data['picture_url'] }}" style="max-height: 100px;" class="rounded d-block">
