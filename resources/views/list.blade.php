@@ -17,7 +17,23 @@
       <a href="/list" class="navbar-brand" style="padding: 15px;"> HOME </a>
     </div>
     <div style="padding: 40px;">
-      <table id="exemple" class="table table-striped table-bordered" style="width:100%">
+      <label for="date">FILTER DATE</label>
+      <div style="width: 200px">
+        <input class="form-control" type="date" id="date">
+      </div>
+      <hr>
+      <input class="form-control" id="myInput" type="text" placeholder="Search.." style="width: 200px;">
+      <hr>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+      <table class="table table-striped table-bordered" style="width:100%">
         <thead>
           <tr>
             <th>NAME</th>
@@ -31,7 +47,7 @@
             <th>ACTIONS</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="table">
           @isset($datas)
             @foreach ($datas as $data)
               <tr>
@@ -63,14 +79,18 @@
       </table>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    
 
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
-      $(document).ready(function() {
-        $('#exemple').DataTable();
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#table tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
       });
     </script>
-  </body>
+
 </html>
