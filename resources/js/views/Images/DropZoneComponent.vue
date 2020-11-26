@@ -28,11 +28,10 @@ export default {
         drop: function (event) {
             event.preventDefault();
 
-            this.drag = false;
             this.load = true;
 
             this.$store.dispatch('images/create', event.dataTransfer.files).then(() => {
-                this.load = false;
+                this.load = this.drag = false;
             });
         },
         dragleave: function () {

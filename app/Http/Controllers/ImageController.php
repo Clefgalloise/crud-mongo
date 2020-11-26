@@ -94,11 +94,11 @@ class ImageController extends Controller
             }
 
             $data[] = [
-                'ext'        => $ext = $file->getClientOriginalExtension(),
-                'name'       => Str::beforeLast($file->getClientOriginalName(), '.' . $ext),
-                'path'       => $file->store('images', 'public'),
-                'prediction' => $predictions[$name] ?? [],
-                'created_at' => now()->format('Y-m-d H:i:s')
+                'ext'         => $ext = $file->getClientOriginalExtension(),
+                'name'        => Str::beforeLast($file->getClientOriginalName(), '.' . $ext),
+                'path'        => $file->store('images', 'public'),
+                'predictions' => $predictions[$name] ?? [],
+                'created_at'  => now()->format('Y-m-d H:i:s')
             ];
         }
 
