@@ -18,4 +18,5 @@ mix
     .sass('resources/sass/app.scss', 'public/css', [
         //
     ])
-    .tailwind('./tailwind.config.js');
+    .tailwind('./tailwind.config.js')
+    .disableSuccessNotifications();

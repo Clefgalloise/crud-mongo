@@ -1,27 +1,39 @@
 <template>
     <div class="w-3/6 h-full px-6 py-10">
-        <stack :column-min-width="150" :gutter-width="16" :gutter-height="16" monitor-images-loaded>
-            <stack-item v-for="(image, i) in images" :key="i" style="transition: transform .3s">
-                <router-link :to="{name: 'images.show', params: {image: image.id}}">
-                    <img :src="image.src" class="rounded-md shadow-md cursor-pointer image"
-                         :class="{selected: isSelected(image.id), 'has-image': hasImage()}">
-                </router-link>
-            </stack-item>
-        </stack>
+        <template v-if="load">
+            <div class="loader">
+                <SpinningDots/>
+            </div>
+        </template>
+        <template v-else-if="images.length <= 0">
+            <div class="not-found">
+                <p>No image found...</p>
+            </div>
+        </template>
+        <template v-else>
+            <stack :column-min-width="200" :gutter-width="16" :gutter-height="16" monitor-images-loaded>
+                <stack-item v-for="image in images" :key="image._id" style="transition: transform .3s">
+                    <Item :image="image"/>
+                </stack-item>
+            </stack>
+        </template>
     </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import {Stack, StackItem} from 'vue-stack-grid';
+import Item from './ItemComponent';
+import SpinningDots from './../../components/SpinningDots';
 
 export default {
     name: 'ImagesList',
 
-    components: {Stack, StackItem},
+    components: {Stack, StackItem, Item, SpinningDots},
 
     data() {
         return {
-            images: []
+            load: true
         }
     },
 
@@ -34,32 +46,34 @@ export default {
         }
     },
 
-    mounted() {
-        this.$nextTick(() => {
-            for (let i = 1; i <= 50; i++) {
-                this.images.push({
-                    id: i,
-                    src: 'https://source.unsplash.com/random/' + i
-                });
-            }
+    computed: {
+        ...mapGetters({
+            images: 'images/images'
         })
+    },
+
+    mounted() {
+        this.$store.dispatch('images/fetchImages').then(() => {
+            setTimeout(() => this.load = false, 1000);
+        });
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.image {
-    transition: filter .3s;
-    filter: grayscale(.4);
+.loader {
+    display: flex;
+    justify-content: center;
+}
 
-    &:hover, &.selected {
-        transform: scale(1.05);
-        filter: grayscale(0) saturate(1.2) !important;
-        box-shadow: 0 0 1rem .2rem rgba(0, 0, 0, .3);
-    }
+.not-found {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
 
-    &.has-image {
-        filter: grayscale(1);
+    p {
+        color: rgb(35, 43, 60);
     }
 }
 </style>
