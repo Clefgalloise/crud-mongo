@@ -28,7 +28,7 @@ const actions = {
         let predictions = new Object();
 
         for (let i = 0; i < files.length; i++) {
-            predictions['image_' + i] = await detect(files[0]);
+            predictions['image_' + i] = await detect(files[i]);
 
             formData.append('image_' + i, files[i]);
         }

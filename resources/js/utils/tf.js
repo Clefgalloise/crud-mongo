@@ -8,8 +8,8 @@ const cocoSsd = require('@tensorflow-models/coco-ssd');
  * @returns {Promise<DetectedObject[]>}
  */
 export const detect = async file => {
-    const url = URL.createObjectURL(file);
-    const image = new Image();
+    let url = URL.createObjectURL(file);
+    let image = new Image();
 
     image.onload = function () {
         URL.revokeObjectURL(this.src);
@@ -18,9 +18,9 @@ export const detect = async file => {
 
     image.src = url;
 
-    const model = await cocoSsd.load();
+    let model = await cocoSsd.load();
 
-    const predictions = await model.detect(image);
+    let predictions = await model.detect(image);
 
     return predictions;
 };
