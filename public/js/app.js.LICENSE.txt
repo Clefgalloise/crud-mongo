@@ -1,0 +1,11 @@
+/*!
+	 * imagesLoaded v4.1.1
+	 * JavaScript is all like "You images are done yet or what?"
+	 * MIT License
+	 */
+
+/*!
+ * Vue.js v2.6.12
+ * (c) 2014-2020 Evan You
+ * Released under the MIT License.
+ */

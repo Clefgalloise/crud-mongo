@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,81 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('images', [ImageController::class, 'index'])->name('images');
+Route::get('images/{any}', [ImageController::class, 'index'])->where('any', '.*');
+
 Route::resource('{collection}', CollectionController::class)->parameters([
     '{collection}' => 'id'
 ]);
-
-Route::get('view/{id}', function () {
-    $datas = [];
-    for($i = 1; $i <= 15; $i++){
-        $datas[] = [
-            'id' => $i,
-            'name' => 'Name'.$i,
-            'description' => 'Description'.$i,
-            'picture_url' => 'PictureUrl'.$i,
-            'host_name' => 'Name Host'.$i,
-            'host_about' => 'About Host'.$i,
-            'host_response_time' => '2 Hours'.$i,
-            'host_picture_url' => 'HostUrl'.$i,
-            'other' => 'DATA NOT SHOWED IN LIST BUT IN VIEW'
-        ];
-    }
-
-    $data = null;
-    $dataSend = [];
-
-    foreach($datas as $dataTemp){
-        if($dataTemp['id'] == request('id')){
-            $data = $dataTemp;
-        }
-    }
-
-    return view('view')->with('data', $data);
-});
-
-Route::get('list', function () {
-    $datas = [];
-    for($i = 1; $i <= 15; $i++){
-        $datas[] = [
-            'id' => $i,
-            'name' => 'Name'.$i,
-            'description' => 'Description'.$i,
-            'picture_url' => 'PictureUrl'.$i,
-            'host_name' => 'Name Host'.$i,
-            'host_about' => 'About Host'.$i,
-            'host_response_time' => '2 Hours'.$i,
-            'host_picture_url' => 'HostUrl'.$i,
-            'other' => 'DATA NOT SHOWED IN LIST BUT IN VIEW'
-        ];
-    }
-
-    return view('list')->with('datas', $datas);
-});
-
-Route::get('edit/{id}', function () {
-    $datas = [];
-    for($i = 1; $i <= 15; $i++){
-        $datas[] = [
-            'id' => $i,
-            'name' => 'Name'.$i,
-            'description' => 'Description'.$i,
-            'picture_url' => 'PictureUrl'.$i,
-            'host_name' => 'Name Host'.$i,
-            'host_about' => 'About Host'.$i,
-            'host_response_time' => '2 Hours'.$i,
-            'host_picture_url' => 'HostUrl'.$i,
-            'other' => 'DATA NOT SHOWED IN LIST BUT IN VIEW'
-        ];
-    }
-
-    $data = null;
-    $dataSend = [];
-
-    foreach($datas as $dataTemp){
-        if($dataTemp['id'] == request('id')){
-            $data = $dataTemp;
-        }
-    }
-
-    return view('edit')->with('data', $data);
-});
