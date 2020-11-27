@@ -20,6 +20,10 @@
                         <p>No object detected.</p>
                     </template>
                 </div>
+
+                <div class="date">
+                    {{ formatDate(image.created_at) }}
+                </div>
             </div>
         </div>
     </div>
@@ -28,6 +32,7 @@
 <script>
 import {mapGetters} from 'vuex';
 import SpinningDots from './../../components/SpinningDots';
+import * as timeago from 'timeago.js';
 
 export default {
     name: 'ImagesDetail',
@@ -57,7 +62,10 @@ export default {
             });
         },
         formatScore: function (score) {
-            return (Math.round(score * Math.pow(10, 4)) / Math.pow(10, 4)) * 100;
+            return Math.round((score * 100) * Math.pow(10, 2)) / Math.pow(10, 2);
+        },
+        formatDate: function (date) {
+            return timeago.format(date);
         }
     },
 
@@ -132,7 +140,7 @@ export default {
 
     .predictions {
         margin-top: 2rem;
-        max-height: calc(100% - 4.8rem);
+        max-height: calc(100% - 6.5rem);
         overflow: hidden;
         overflow-y: auto;
     }
@@ -151,6 +159,13 @@ export default {
         justify-content: flex-end;
         color: rgba(#1a202c, .5);
         font-size: .8rem;
+    }
+
+    .date {
+        font-size: .8rem;
+        position: absolute;
+        bottom: .25rem;
+        right: 1rem;
     }
 }
 </style>
