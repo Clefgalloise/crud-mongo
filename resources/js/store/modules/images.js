@@ -1,7 +1,8 @@
 import {detect} from './../../utils/tf';
 
 const state = {
-    data: []
+    data: [],
+    current: null
 };
 
 const getters = {
@@ -12,6 +13,9 @@ const getters = {
         return image => {
             return state.data.filter(item => item._id !== image).length > 0;
         }
+    },
+    current: state => {
+        return state.current;
     }
 };
 
@@ -45,6 +49,13 @@ const actions = {
             commit('addImages', res.data);
         }
     },
+    fetchImage: async ({commit}, image) => {
+        let res = await axios.get('/api/images/' + image);
+
+        if (res.status === 200 && res.data.success === true) {
+            commit('setCurrent', res.data);
+        }
+    },
     fetchImages: async ({commit}) => {
         let res = await axios.get('/api/images/all');
 
@@ -62,11 +73,18 @@ const actions = {
 };
 
 const mutations = {
+    setCurrent: (state, {data}) => {
+        state.current = data;
+    },
     setImages: (state, {data}) => {
         state.data = data;
     },
     deleteImage: (state, image) => {
         state.data = state.data.filter(item => item._id !== image);
+
+        if (state.current._id === image) {
+            state.current = null;
+        }
     },
     addImages: (state, {data}) => {
         state.data = [...data, ...state.data];

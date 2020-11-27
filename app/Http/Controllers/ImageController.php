@@ -120,6 +120,26 @@ class ImageController extends Controller
      *
      * @return JsonResponse
      */
+    public function show(string $id): JsonResponse
+    {
+        $data = $this->mongo->selectCollection('images')->findOne(['_id' => new ObjectId($id)]);
+
+        if ($data) {
+            $data['_id'] = (string)$data['_id'];
+            $data['path'] = Storage::disk('public')->url($data['path']);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data
+        ]);
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return JsonResponse
+     */
     public function delete(string $id): JsonResponse
     {
         $image = $this->mongo->selectCollection('images')->findOne(['_id' => new ObjectId($id)]);

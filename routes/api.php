@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/images/all', [ImageController::class, 'all']);
 Route::post('/images', [ImageController::class, 'create']);
+Route::get('/images/{id}', [ImageController::class, 'show']);
 Route::delete('/images/{id}', [ImageController::class, 'delete']);
